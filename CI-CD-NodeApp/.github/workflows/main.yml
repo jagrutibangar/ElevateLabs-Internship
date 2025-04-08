@@ -20,11 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ElevateLabs-Internship/CI-CD-NodeApp
+        working-directory: ElevateLabs Internship/ElevateLabs-Internship/CI-CD-NodeApp
 
       - name: Run tests
         run: npm test
-        working-directory: ElevateLabs-Internship/CI-CD-NodeApp
+        working-directory: ElevateLabs Internship/ElevateLabs-Internship/CI-CD-NodeApp
 
       - name: Login to DockerHub
         run: echo "${{ secrets.jagrutib27 }}" | docker login -u "${{ secrets.jagrutib27 }}" --password-stdin
