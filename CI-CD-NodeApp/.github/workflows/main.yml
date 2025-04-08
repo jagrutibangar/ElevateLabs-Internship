@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Node.js CI/CD with Docker
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,25 +16,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
         working-directory: CI-CD-NodeApp
 
       - name: Run tests
-        run: echo "No tests yet!"
+        run: npm test
         working-directory: CI-CD-NodeApp
 
-      - name: Log in to DockerHub
-#<<<<<<< HEAD
-        run: echo "${{ secrets.jagrutib27 }}" | docker login -u ${{ secrets.jagrutib27 }} --password-stdin
+      - name: Login to DockerHub
+        run: echo "${{ secrets.jagrutib27 }}" | docker login -u "${{ secrets.jagrutib27 }}" --password-stdin
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.jagrutib27 }}/node-cicd-demo .
         working-directory: CI-CD-NodeApp
 
-#>>>>>>> 622a385 (Fix path for workflow steps)
-
-      - name: Push to DockerHub
+      - name: Push Docker image
         run: docker push ${{ secrets.jagrutib27 }}/node-cicd-demo
